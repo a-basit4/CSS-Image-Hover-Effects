@@ -1,0 +1,400 @@
+h1 {
+	text-align: center;
+	line-height: 45px;
+}
+@define-mixin box{
+	border: 2px solid #000;
+	max-width: 400px;
+	position: relative;
+	overflow: hidden;
+	margin: 10px auto;
+}
+@define-mixin images{
+	width: 100%;
+	height : auto;
+	display: block;
+
+}
+
+@define-mixin hidden {
+	color: #fff;
+	background: rgba(0,0,0,0.8);
+	position: absolute;
+	top: 0;
+	height: 100%;
+	width: 100%;
+	padding: 20px;
+	box-sizing: border-box;
+}
+
+/*sliding caption hover effect*/
+
+.box1{
+	@add-mixin box;
+}
+.box1:hover .content1{
+	left: 0;
+}
+.box1 img {
+	@add-mixin images;
+}
+.content1 {
+	@add-mixin hidden;
+	left: -100%;
+	transition: all 0.5s;
+}
+
+/*Image Hover Zoom In Out Effect*/
+
+.box2 {
+	@add-mixin box;
+}
+.box2:hover img{
+	transform: scale(0);
+}
+.box2:hover .content2{
+	opacity: 1;
+	transform: scale(1) rotate(0deg);
+	transition-delay: 0.2s;
+}
+.box2 img {
+	@add-mixin images;
+	transition: all 0.4s;
+}
+.content2 {
+	@add-mixin hidden;
+	transform: scale(0) rotate(-180deg);
+	transition: all 0.4s;
+	opacity: 0;
+}
+
+/*Image Hover Rotating Card Effect*/
+
+.box3 {
+	max-width: 390px;
+	max-height: 380px;
+	margin: 0 auto;
+	position: relative;
+	overflow: hidden;
+	border-radius: 50%;
+}
+.box3 .box-pic {
+	position: relative;
+	transform-origin: 95% 50% 0; /*left top z-index*/
+	transition: all 0.5s;
+	z-index: 1;
+	overflow: hidden;
+}
+.box3 .box-pic:after {
+	content:"";
+	position:absolute;
+	top: 50%;
+	left: 95%;
+	width:8px;
+	height: 8px;
+	background: #000;
+	border-radius: 50%;
+}
+.box3:hover .box-pic {
+	transform: rotate(-140deg);
+}
+.box3 img {
+	@add-mixin images;
+	border-radius: 50%;
+}
+.content3 {
+	@add-mixin hidden;
+	text-align: center;
+	border-radius: 50%;
+	padding: 110px 30px;
+}
+
+/*Image Hover Effect with Multiside Sliding Caption Background*/
+
+.box4 {
+	@add-mixin box;
+}
+.box4 img {
+	@add-mixin images;
+}
+.box-img4{
+	display: block;
+	position: relative;
+}
+.box-img4:before,
+.box-img4:after,
+.over-layer:before,
+.over-layer:after {
+	content:"";
+	width: 50%;
+	height: 50%;
+	position: absolute;
+	background: rgba(255,255,255,0.4);
+	transition: all 0.4s ease-in-out 0s; /*Transition complete smothness delay*/
+}
+.box-img4:before {
+	left: -100%;
+	top: 0;
+}
+.box4:hover .box-img4:before {
+	left: 0%;
+}
+.box-img4:after {
+	top: -100%;
+	right: 0;
+}
+.box4:hover .box-img4:after {
+	background: rgba(255,255,255,0.8);
+	top: 0;
+}
+.over-layer {
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	text-align: center;
+}
+.over-layer:before {
+	left: 0;
+	bottom: -100%;
+}
+.box4:hover .over-layer:before {
+	background: rgba(255,255,255,0.8);
+	bottom: 0;
+}
+.over-layer:after {
+	bottom: 0;
+	right: -100%;
+}
+.box4:hover .over-layer:after {
+	right: 0;
+}
+.over-layer i {
+	position: relative;
+	top: 43%;
+	font-size: 35px;
+	color: red;
+	z-index: 1;
+	opacity: 0;
+	transition: all 0.4s ease-in-out 0.1s; /*Transition complete, smothness, delay*/
+}
+.box4:hover i {
+	opacity: 1;
+}
+
+/*Image Hover effect with Vertical Rotating Card*/
+
+.box5 {
+	margin: 0 auto;
+	max-width: 300px;
+	perspective: 1000px;
+	box-sizing: border-box;
+	overflow: hidden;	
+}
+
+.box-img5 img {
+	@add-mixin images;
+}
+.box-img5 {
+	transform: rotateY(0);	
+	transition: all 0.5s ease-in-out 0s; /*All properties, Transition complete, Smoothnes, Delay*/
+}
+.box5:hover .box-img5 {
+	transform: rotateY(-90deg);
+	opacity: 0;
+}
+.content5 {
+	@add-mixin hidden;
+	transform: rotateY(90deg);
+	transition: all 0.5s ease-in-out 0s; /*All properties, Transition complete, Smoothnes, Delay*/
+	opacity: 0;
+}
+.box5:hover .content5 {
+	transform: rotate(0);
+	opacity: 1;
+}
+
+/*Image Hover Effect with Border Animation*/
+
+.box6 {
+	box-sizing: border-box;
+	max-width: 350px;
+	margin: 10px auto;
+	box-shadow: 0 0 5px #bababa;
+	overflow: hidden;
+	position: relative;
+	&:before,
+	&:after {
+		content:"";
+		width: 0;
+		height: 0;
+		position: absolute;
+		opacity: 0;
+		z-index:1;
+		transition: all .5s;
+	}
+	&:before{
+		bottom: 4.5%;
+		left: 4.5%;
+		border-bottom: 2px solid #fff;
+		border-left: 2px solid #fff;
+	}
+	&:after{
+		top: 5%;
+		right: 5%;
+		border-top: 2px solid #fff;
+		border-right: 2px solid #fff;
+	}
+	&:hover:before, &:hover:after{
+		opacity: 1;
+		width: 90%;
+		height: 90%;		
+	}
+	& img {
+		width: 100%;
+		height: auto;
+		transform: scale(1);
+		display: block;
+		transition:  all 0.5s;
+	}
+	&:hover img {
+		transform: scale(1.05);
+	}
+	&-content {
+		color: red;
+		width: 100%;
+		position: absolute;
+		bottom: 10%;
+		left: 10%;
+
+	}
+	&-name , &-post {
+		display: block;
+		font-size:25px;
+		line-height: 25px;
+		margin: 0;
+		opacity: 1;
+		position: absolute;
+		bottom: 0;
+		left: 0;
+		transition: all .5s;
+	}
+	&:hover &-name , &-post {
+		opacity: 0;
+		transition: all .5s;
+	}
+	&:hover &-post {
+		opacity: 1;
+	}
+}
+
+/*Image Hover with Shutter Overlay Effect*/
+
+.box7 {
+	box-sizing: border-box;
+	max-width: 350px;
+	background: #fff;
+	box-shadow: 0 0 5px #bababa;
+	overflow: hidden;
+	margin: 0 auto;
+	position: relative;
+
+	& img {
+		width: 100%;
+		height: auto;
+		display: block;
+	}
+
+	&-content {
+		width: 100%;
+		height: 100%;
+		position: absolute;
+		top: 0;
+		left: 0;
+		text-align: center;
+	}
+
+	&-content:before,
+	&-content:after {
+		content: "";
+		width: 90%;
+		height: 47%;
+		background: pink;
+		position: absolute;
+		left: 0;
+		right: 0;
+		margin: auto;
+		transition: all .5s;
+		opacity: 0;
+	}
+
+	&-content:before {
+		top: -20%;
+	}
+	&-content:after {
+		bottom: -20%;
+	}
+
+	&:hover &-content:before {
+		top: 3%;
+		opacity: .8;
+	}
+	&:hover &-content:after {
+		bottom: 3%;
+		opacity: .8;
+	}
+
+	&-inner-content {
+		width: 100%;
+		height: 10%;
+		position: absolute;
+		top: 0;
+		bottom: 0;
+		right: 0;
+		left: 0;
+		margin: auto;
+		z-index: 1;
+		transform: rotate(90deg);
+		opacity: 0;
+		transition: all .5s;
+	}
+	&:hover &-inner-content {
+		opacity: 1;
+		transform: rotate(0);
+	}
+	&-social {
+		padding: 0;
+		margin: 0 0 20px 0;
+		list-style: none;
+	}
+	&-social li{
+		display: inline-block;
+		margin-right: 10px;
+	}
+	&-social li a {
+		color: #000;
+		background: #fff;
+		display: block;
+		width: 35px;
+		height: 35px;
+		line-height: 35px;
+		border-radius: 50%;
+		font-size: 18px;
+		transition: all .2s;
+	}
+	&-social li a:hover {
+		color: red;
+	}
+	&-title {
+		color: #fff;
+		font-size: 22px;
+		margin-bottom: 7px;
+		text-transform: capitalize;
+	}
+	&-post {
+		color: #fff;
+		font-size: 14px;
+		text-transform: capitalize;
+	}
+}
